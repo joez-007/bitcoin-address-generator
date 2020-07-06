@@ -1,0 +1,23 @@
+{
+    "appenders": {
+        "consoleAppender": {
+            "type": "console",
+            "layout": {
+                "type": "pattern",
+                "pattern": "%d - %c:[%p]: %m"
+            }
+        },
+        "fileAppender": {
+            "type": "file",
+            "filename": "./logs/trace",
+            "pattern": "yyyy-MM-dd.log",
+            "alwaysIncludePattern": true
+        }
+    },
+    "categories": {
+        "default": {
+            "appenders": ["consoleAppender", "fileAppender"],
+            "level": "info"
+        }
+    }
+}
