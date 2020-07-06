@@ -86,7 +86,7 @@ class HDForm extends React.Component<HDFormProps> {
                     <Title>HD Segwit Address Generator</Title>
                     <Paragraph>
                         You can either enter an existing seed, or generate a new random one clicking the{' '}
-                        <Text strong>"Get ramdom seed"</Text> button. When you get a seed and enter required path, then
+                        <Text strong>"Get random seed"</Text> button. When you get a seed and enter required path, then
                         clicking the "Generate" button, then address will be generated in the bottom the address box.
                     </Paragraph>
                 </Typography>
@@ -97,7 +97,7 @@ class HDForm extends React.Component<HDFormProps> {
                         })(<TextArea rows={3} allowClear/>)}
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
-                        <Button onClick={this.handleGetSeed}>Get ramdom seed</Button>
+                        <Button onClick={this.handleGetSeed}>Get random seed</Button>
                     </Form.Item>
                     <Form.Item label="Path">
                         {getFieldDecorator(`path`, {

@@ -124,12 +124,12 @@ class P2SHForm extends React.Component<P2SHFormProps> {
                     <Title>Multisig Address Generator</Title>
                     <Paragraph>
                         Clicking the button <Text strong>"Add public key"</Text> to create new entry for public keys.
-                        Enter the public keys of all the participants, to create a multi signature address.
+                        Enter the public keys of all the participants, to create a multi signature address.{' '}
                         <Text strong>Maximum of 15 allowed.</Text>
                     </Paragraph>
                     <Paragraph>
                         Clicking the "Generate" button after you enter required fields, then address will be generated
-                        in the bottom the
+                        in the bottom the {' '}
                         <Text strong>Address box.</Text>
                     </Paragraph>
                 </Typography>

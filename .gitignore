@@ -96,6 +96,9 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# compiled files
 build/
 
+# umi
 dist/
+.umi/
