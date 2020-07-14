@@ -11,14 +11,14 @@ function createAddressCreationResponse(address: string | undefined): IAddressCre
 }
 
 /**
- * generate segwit Pay-to-Public-Key-Hash address
+ * Generate segwit Pay-to-Public-Key-Hash address
  * @param req Parameters passed by json in http request body: {seed:string,path:string}, seed is hex string
  * @param res  Http response
  */
 async function generateP2WPKHAddress(req: any, res: any) {
     try {
         const reqData = req.swagger.params['body'].value;
-        const address = WalletService.generateSegWitAddress(reqData.seed, reqData.path);
+        const address = WalletService.generateSegWitHDWalletAddress(reqData.seed, reqData.path);
         writeJsonResponse(res, {
             code: 200,
             data: createAddressCreationResponse(address),
@@ -29,25 +29,7 @@ async function generateP2WPKHAddress(req: any, res: any) {
 }
 
 /**
- * generate legacy Pay-to-Public-Key-Hash address
- * @param req Parameters passed by json in http request body: {seed:string,path:string}, seed is hex string
- * @param res  Http response
- */
-async function generateP2PKHAddress(req: any, res: any) {
-    try {
-        const reqData = req.swagger.params['body'].value;
-        const address = WalletService.generateP2PKHAddress(reqData.seed, reqData.path);
-        writeJsonResponse(res, {
-            code: 200,
-            data: createAddressCreationResponse(address),
-        });
-    } catch (err) {
-        handleError(err, res, 'generateP2PKHAddress');
-    }
-}
-
-/**
- * generate Pay-to-ScriptHash address
+ * Generate Pay-to-ScriptHash address
  * @param req Parameters passed by json in request body: {pubkeys:string[],m:number}
  * @param res  Http response
  */
@@ -82,4 +64,4 @@ async function generateSeed(req: any, res: any) {
     }
 }
 
-export {generateSeed, generateP2WPKHAddress, generateP2PKHAddress, generateP2SHAddress};
+export {generateSeed, generateP2WPKHAddress, generateP2SHAddress};

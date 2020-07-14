@@ -61,31 +61,6 @@ paths:
                 500:
                     description: 'Internal Server Error'
             x-swagger-router-controller: 'WalletController'
-    /wallet/P2PKHAddress:
-        post:
-            tags:
-                - 'wallet'
-            summary: 'generate HD legacy Pay-to-Public-Key-Hash bitcoin address'
-            operationId: 'generateP2PKHAddress'
-            produces:
-                - 'application/json'
-            parameters:
-                - in: 'body'
-                  name: 'body'
-                  description: 'seed and path for HD wallet to generate Legacy bitcoin address'
-                  required: true
-                  schema:
-                      $ref: '#/definitions/AddressCreationRequest'
-            responses:
-                200:
-                    description: 'successful operation'
-                    schema:
-                        $ref: '#/definitions/AddressCreationResponse'
-                400:
-                    description: 'Invalid seed or path supplied'
-                500:
-                    description: 'Internal Server Error'
-            x-swagger-router-controller: 'WalletController'
     /wallet/P2SHAddress:
         post:
             tags:

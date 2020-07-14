@@ -94,7 +94,7 @@ class HDForm extends React.Component<HDFormProps> {
                     <Form.Item label="Seed">
                         {getFieldDecorator(`seed`, {
                             rules: [{required: true, min: 128, message: 'This filed cannot be less than 128 chars'}],
-                        })(<TextArea rows={3} allowClear/>)}
+                        })(<TextArea rows={3} allowClear />)}
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Button onClick={this.handleGetSeed}>Get random seed</Button>
@@ -103,10 +103,10 @@ class HDForm extends React.Component<HDFormProps> {
                         {getFieldDecorator(`path`, {
                             initialValue: 'm/80/0/0/0/6',
                             rules: [{required: true, message: 'This field cannot be empty'}],
-                        })(<Input allowClear/>)}
+                        })(<Input allowClear />)}
                     </Form.Item>
                     <Form.Item label="Address">
-                        {getFieldDecorator(`address`, {})(<TextArea rows={2} readOnly={true}/>)}
+                        {getFieldDecorator(`address`, {})(<TextArea rows={2} readOnly={true} />)}
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">

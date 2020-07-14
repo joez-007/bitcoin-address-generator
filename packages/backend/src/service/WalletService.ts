@@ -1,57 +1,46 @@
 /** @format */
-import {createHDRootNodeFromSeed} from '../utils/hdKeyNode';
-import * as p2sh from '../utils/p2shUtils';
-import {AddressType, IHDKeyNodeInterface} from '../types/index';
+
 import * as addressUtils from '../utils/addressUtils';
+import * as hd from '../utils/hdUtils';
+import {Script} from '../utils/Script';
+import {hash160} from '../utils/cryptoUtils';
 
-/**
- * Generate a Hierarchical Deterministic (HD) bitcoin address from a given seed and path
- * @param seed the seed to generate master key
- * @param path the path of child, it follw BIP32
- * @param addressType legacy P2PKH address or Segregated Witness address
- */
-function generateHDWalletAddress(seed: string, path: string, addressType: AddressType): string | undefined {
-    const bSeed: Buffer = Buffer.from(seed, 'hex');
-    const rootNode: IHDKeyNodeInterface = createHDRootNodeFromSeed(bSeed);
-
-    const childNode = rootNode.derivePath(path);
-    if (addressType == AddressType.P2PKH) return addressUtils.getP2PKHAddress(childNode.publicKey as Buffer);
-    else return addressUtils.getP2wpkhAddress(childNode.publicKey as Buffer);
-}
+const {base58} = require('bstring');
 
 /**
  * Generate a Hierarchical Deterministic (HD) Segregated Witness (SegWit) bitcoin address from a given seed and path
  * @param seed the seed to generate master key
- * @param path the path of child, it follw BIP32
+ * @param path the path of child, it follows BIP32
  */
-function generateSegWitAddress(seed: string, path: string): string | undefined {
-    return generateHDWalletAddress(seed, path, AddressType.P2WPKH);
+function generateSegWitHDWalletAddress(seed: string, path: string): string | undefined {
+    const bSeed: Buffer = Buffer.from(seed, 'hex');
+    const keys = hd.derivePath(path, bSeed);
+    if (keys.privateKey) {
+        const publicKey = addressUtils.getPublicKey(keys.privateKey);
+        let address = addressUtils.getP2wpkhAddress(publicKey);
+        return address;
+    } else throw new Error('generate hdkey error');
 }
 
 /**
- * Generate a Hierarchical Deterministic (HD) Legacy P2PKH bitcoin address from a given seed and path
- * @param seed the seed to generate master key
- * @param path the path of child, it follw BIP32
- */
-function generateP2PKHAddress(seed: string, path: string): string | undefined {
-    return generateHDWalletAddress(seed, path, AddressType.P2PKH);
-}
-
-/**
- * create a multi signature address
+ * Generate a multi signature address
  * @param pubkeys the public keys of all the participants
  * @param m the amount of signatures required to release the coins
  */
 function generateMultiSigP2SHAddress(pubkeys: string[], m: number): string | undefined {
-    const bPubKyes = pubkeys.map(skey => Buffer.from(skey, 'hex'));
-    return p2sh.generateP2SHAddress(bPubKyes, m);
+    const bpubkeys = pubkeys.map(skey => Buffer.from(skey, 'hex'));
+    let s: Script = new Script();
+    let mHash = hash160(s.getMultisigHash(m, bpubkeys));
+    let raw = addressUtils.toRaw(mHash, addressUtils.mainAddressPrefix.scripthash);
+    let address = base58.encode(raw);
+    return address;
 }
 
 /**
- * generate Seed
+ * Generate a random Seed
  */
 function generateSeed(): string {
     return addressUtils.generateSeed();
 }
 
-export {generateSeed, generateSegWitAddress, generateP2PKHAddress, generateMultiSigP2SHAddress};
+export {generateSeed, generateSegWitHDWalletAddress, generateMultiSigP2SHAddress};

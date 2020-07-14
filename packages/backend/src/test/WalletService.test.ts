@@ -11,16 +11,8 @@ describe('WalletService', () => {
         let seed =
             'f4f0cda65a9068e308fad4c96e8fe22213dd535fe7a7e91ca70c162a38a49aaacfe0dde5fafbbdf63cf783c2619db7174bc25cbfff574fb7037b1b9cec3d09b6';
         let path = "m/84'/0'/0'/0/6";
-        let address = wallet.generateSegWitAddress(seed, path);
+        let address = wallet.generateSegWitHDWalletAddress(seed, path);
         assert.strictEqual(address, 'bc1q7ue7647tq4r4kn6fj7dpjas0fwgxt06j8gsjkg');
-    });
-
-    it('Can generate a HD Legacy P2PKH address from a given seed and path', () => {
-        let seed =
-            'f4f0cda65a9068e308fad4c96e8fe22213dd535fe7a7e91ca70c162a38a49aaacfe0dde5fafbbdf63cf783c2619db7174bc25cbfff574fb7037b1b9cec3d09b6';
-        let path = "m/44'/0'/0'/0/3";
-        let address = wallet.generateP2PKHAddress(seed, path);
-        assert.strictEqual(address, '1B1gpcewfXveUxb2bBiAHNG1XxkJ9C8ure');
     });
 
     it('can throw error with incorrect path', () => {
@@ -28,7 +20,7 @@ describe('WalletService', () => {
             'f4f0cda65a9068e308fad4c96e8fe22213dd535fe7a7e91ca70c162a38a49aaacfe0dde5fafbbdf63cf783c2619db7174bc25cbfff574fb7037b1b9cec3d09b6';
         let path = "m84a'/0'/0'/0/6";
         assert.throws(() => {
-            let address = wallet.generateSegWitAddress(seed, path);
+            let address = wallet.generateSegWitHDWalletAddress(seed, path);
         });
     });
 

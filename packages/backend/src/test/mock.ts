@@ -1,0 +1,32 @@
+export const mockWalletData={
+    seed:"9648b1c01a0c76f4ef1ac13b6ed79869ada748674f967075d484a04da468ac8d7cec4076e5886281c78ad7dde9f623118ef35fe30adbb794ddfbc343fbefa5a2",
+    root:{
+        privateKey:"72080a5c4c5d989fa9b1c9960d3ad6f81bfcd0bdffe9739183e38c18484b1e31",
+        chainCode:"174b8905d24c4ffe7e4ff7cff6ddac66de48fa3d77205205d6f79c4e3d668256"
+    },
+    Wallet:[
+        {
+            path:"m/84'/0/0'/0/4",
+            publicKey:"02e4d805d535277bb156f0e13af2fe8071fc4d2d5036ee7cb2094ff59f3d81e562",
+            privateKey:"9fb1be1526e018965d2882482771d381da6b819c6025e253e419ca7275ebf1e5",
+            chainCode:"e8793a60f4d4cdbdb30efa2a88c9628175293f1b1281f213998d9537ab1a2af7",
+            P2WPKH:"bc1qxld777yjup02pefcak7sc52zzsmv5eux9slc0c",
+        },
+        {
+            path:"m/84'/0'/0'/0/6",
+            publicKey:"02979e2583bc7d328620990a2f3545ae0e6265df356bdc1f9175978a38ff7d4f5f",
+            privateKey:"ffbaf79464056cc5924c4b2d64517d7f6c2837abd1b6253fcfc9ae34f9cdc20a",
+            chainCode:"20e56c02e1d5f357a7fb34cc4773f1801b0938432b29c99d7f9b8013d478202f",
+            P2WPKH:"bc1qfckyfey8h2f40va09uw4xpv76zfcphcnyu92ap",
+        },{
+            path:"m/44'/0'/0'/0/3",
+            publicKey:"028861c5594020fd33e1686bc45a2a6752c8c9cf5c59a67086454b4415cd375a2f",
+            privateKey:"b91e940cb2e3f6cabe538034af9b737deb411c50face872ccf72d5898cc4b295",
+            chainCode:"776a9d0a903ffe9b218a53c57c7ee4dd121fc7e425af8650cf319fa3ab92a9cf",
+            P2WPKH:"bc1qc7suszct0c4rhlcz5nz7xcgtst2cq5eg9p0tx3",
+        }
+
+    ],
+    P2ScriptHash:"522102e4d805d535277bb156f0e13af2fe8071fc4d2d5036ee7cb2094ff59f3d81e5622102979e2583bc7d328620990a2f3545ae0e6265df356bdc1f9175978a38ff7d4f5f21028861c5594020fd33e1686bc45a2a6752c8c9cf5c59a67086454b4415cd375a2f53ae",
+    MultiSigP2SHAddress:"37oV5xZ6oTboZRHXLuzPnkrJ2dcJZKnqJJ",
+}

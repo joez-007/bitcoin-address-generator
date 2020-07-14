@@ -129,8 +129,7 @@ class P2SHForm extends React.Component<P2SHFormProps> {
                     </Paragraph>
                     <Paragraph>
                         Clicking the "Generate" button after you enter required fields, then address will be generated
-                        in the bottom the {' '}
-                        <Text strong>Address box.</Text>
+                        in the bottom the <Text strong>Address box.</Text>
                     </Paragraph>
                 </Typography>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
