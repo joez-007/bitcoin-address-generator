@@ -1,10 +1,9 @@
-/** @format */
-
-import {opCodes, Opcode} from './Opcode';
+import {opCodes, Opcode} from "./Opcode";
 
 const bio = require('bufio');
 
 export class Script {
+
     private code: Opcode[];
 
     constructor() {
@@ -16,7 +15,8 @@ export class Script {
         this.pushSmall(m);
 
         //this.sortKeys(keys);
-        for (const key of keys) this.pushData(key);
+        for (const key of keys)
+            this.pushData(key);
 
         this.pushSmall(n);
         this.pushOp(opCodes.OP_CHECKMULTISIG);
@@ -24,30 +24,32 @@ export class Script {
         return this.compile();
     }
 
-    pushSmall(num: number) {
+    private pushSmall(num: number) {
         return this.push(Opcode.fromSmall(num));
     }
 
-    pushData(data: any) {
+    private pushData(data: any) {
         return this.push(Opcode.fromData(data));
     }
 
-    push(op: any) {
+    private push(op: Opcode) {
         this.code.push(op);
     }
 
-    pushOp(value: any) {
+    private pushOp(value: number) {
         return this.push(Opcode.fromOp(value));
     }
 
-    compile(): Buffer {
+    private compile(): Buffer {
         let size = 0;
 
-        for (const op of this.code) size += op.getSize();
+        for (const op of this.code)
+            size += op.getSize();
 
         const bw = bio.write(size);
 
-        for (const op of this.code) op.toWriter(bw);
+        for (const op of this.code)
+            op.toWriter(bw);
 
         let raw = bw.render();
 

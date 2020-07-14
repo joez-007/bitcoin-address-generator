@@ -1,5 +1,3 @@
-/** @format */
-
 export const opCodes = {
     // Push
     OP_0: 0x00,
@@ -133,7 +131,7 @@ export const opCodes = {
     OP_NOP10: 0xb9,
 
     // Custom
-    OP_INVALIDOPCODE: 0xff,
+    OP_INVALIDOPCODE: 0xff
 };
 
 const opCache: Opcode[] = [];
@@ -158,11 +156,12 @@ export class Opcode {
         this.data = data;
     }
 
-    static fromSmall(num: any) {
+    static fromSmall(num: number): Opcode {
         return this.fromOp(num === 0 ? 0 : num + 0x50);
     }
 
-    static fromOp(op: number) {
+
+    static fromOp(op: number): Opcode {
         if (opCache.length == 0) {
             initopCache();
         }
@@ -170,26 +169,36 @@ export class Opcode {
         return cached;
     }
 
-    static fromData(data: Buffer) {
-        if (data.length === 1) {
-            if (data[0] === 0x81) return this.fromOp(opCodes.OP_1NEGATE);
+    static fromData(data: Buffer): Opcode {
 
-            if (data[0] >= 1 && data[0] <= 16) return this.fromOp(data[0] + 0x50);
+
+        if (data.length === 1) {
+            if (data[0] === 0x81)
+                return this.fromOp(opCodes.OP_1NEGATE);
+
+            if (data[0] >= 1 && data[0] <= 16)
+                return this.fromOp(data[0] + 0x50);
         }
 
         return this.fromPush(data);
     }
 
-    static fromPush(data: Buffer) {
-        if (data.length === 0) return this.fromOp(opCodes.OP_0);
+    static fromPush(data: Buffer): Opcode {
 
-        if (data.length <= 0x4b) return new this(data.length, data);
+        if (data.length === 0)
+            return this.fromOp(opCodes.OP_0);
 
-        if (data.length <= 0xff) return new this(opCodes.OP_PUSHDATA1, data);
+        if (data.length <= 0x4b)
+            return new this(data.length, data);
 
-        if (data.length <= 0xffff) return new this(opCodes.OP_PUSHDATA2, data);
+        if (data.length <= 0xff)
+            return new this(opCodes.OP_PUSHDATA1, data);
 
-        if (data.length <= 0xffffffff) return new this(opCodes.OP_PUSHDATA4, data);
+        if (data.length <= 0xffff)
+            return new this(opCodes.OP_PUSHDATA2, data);
+
+        if (data.length <= 0xffffffff)
+            return new this(opCodes.OP_PUSHDATA4, data);
 
         throw new Error('Pushdata size too large.');
     }
@@ -198,9 +207,9 @@ export class Opcode {
      * Calculate opcode size.
      * @returns {Number}
      */
-
-    getSize() {
-        if (!this.data) return 1;
+    getSize(): number {
+        if (!this.data)
+            return 1;
 
         switch (this.value) {
             case opCodes.OP_PUSHDATA1:
@@ -220,7 +229,8 @@ export class Opcode {
      */
 
     toWriter(bw: any) {
-        if (this.value === -1) throw new Error('Cannot reserialize a parse error.');
+        if (this.value === -1)
+            throw new Error('Cannot reserialize a parse error.');
 
         if (!this.data) {
             bw.writeU8(this.value);
@@ -248,6 +258,8 @@ export class Opcode {
                 bw.writeBytes(this.data);
                 break;
         }
+
         return bw;
     }
 }
+
